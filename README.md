@@ -6,7 +6,7 @@ This is Ansible role that installs Nextcloud. Nextcloud is free and open-source 
 Requirements
 ------------
 
-Ansible version >=2.0.0
+Ansible version >=2.1.0
 
 Role Variables
 --------------
