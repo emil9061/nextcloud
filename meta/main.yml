@@ -1,0 +1,13 @@
+galaxy_info:
+  author: Kot Manul
+  description: Install Nextcloud (Nginx + PHP + Postgresql + Memcached)
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Debian
+    versions:
+    - all
+
+  galaxy_tags: []
+
+dependencies: []

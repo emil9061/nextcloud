@@ -1,0 +1,25 @@
+- name: Install web server
+  apt:
+    pkg: nginx-extras
+
+- name: Disable default site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Configure Nginx
+  template:
+    src: nextcloud.conf.j2
+    dest: /etc/nginx/sites-available/nextcloud.conf
+
+- name: Enable Nextcloud config
+  file:
+    src: /etc/nginx/sites-available/nextcloud.conf
+    dest: /etc/nginx/sites-enabled/nextcloud.conf
+    state: link
+
+- name: Start Nginx
+  systemd:
+    name: nginx.service
+    state: started
+    enabled: yes

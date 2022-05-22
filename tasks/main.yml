@@ -1,0 +1,39 @@
+---
+# Install Nextcloud web app
+
+- name: Prepare to install Nextcloud
+  include_tasks: "{{ item }}"
+  loop:
+    - postgresql.yml
+    - php.yml
+    - nginx.yml
+
+- name: Install Nextcloud
+  get_url:
+    url: "https://download.nextcloud.com/server/releases/nextcloud-{{ nextcloud_version }}.zip"
+    dest: "/tmp/nextcloud-{{ nextcloud_version }}.zip"
+
+- name: Unzip archive
+  unarchive:
+    src: "/tmp/nextcloud-{{ nextcloud_version }}.zip"
+    dest: /var/www/
+    remote_src: yes
+
+- name: Change permissions for app directory
+  file:
+    path: "{{ app_dir }}/nextcloud"
+    owner: www-data
+    group: www-data
+    state: directory
+    recurse: yes
+
+- name: Start services if not started
+  systemd:
+    name: "{{ item }}.service"
+    state: started
+    enabled: yes
+  with_items:
+    - nginx
+    - postgresql
+    - "php{{ php_v }}-fpm"
+    - memcached

@@ -1,0 +1,46 @@
+# Install & configure DB
+
+- name: Install Postgresql
+  apt:
+    pkg:
+      - postgresql
+      - postgresql-contrib
+      - python3-psycopg2
+
+- name: Start Postgresql
+  systemd:
+    name: postgresql.service
+    state: started
+    enabled: yes
+
+- name: Create DB
+  postgresql_db:
+    name: "{{ db_name }}"
+    state: present
+  become: true
+  become_user: postgres
+
+- name: Create DB user
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_passwd }}"
+    db: "{{ db_name }}"
+    state: present
+
+- name: Set DB owner
+  become: true
+  become_user: postgres
+  postgresql_owner:
+    db: "{{ db_name }}"
+    new_owner: "{{ db_user }}"
+
+- name: Grant privileges
+  become: true
+  become_user: postgres
+  postgresql_privs:
+    type: database
+    db: "{{ db_name }}"
+    privs: ALL
+    roles: "{{ db_user }}"

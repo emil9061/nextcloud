@@ -1,0 +1,30 @@
+- name: Install PHP
+  apt:
+    pkg:
+      - php
+      - php-bcmath
+      - php-bz2
+      - php-common
+      - php-curl
+      - php-fpm
+      - php-gd
+      - php-gmp
+      - php-intl
+      - php-mbstring
+      - php-opcache
+      - php-pgsql
+      - php-imagick
+      - php-xml
+      - php-xmlrpc
+      - php-zip
+      - php-memcached
+      - memcached
+
+- name: Get PHP version
+  shell: "php -v | awk '{print $2}' | head -1 | cut -c1-3"
+  register: php_v
+
+- name: Configure PHP
+  template:
+    src: php.ini.j2
+    dest: "/etc/php/{{ php_v }}/fpm/php.ini"
