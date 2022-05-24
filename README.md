@@ -11,7 +11,7 @@ Ansible version >=2.1.0
 Role Variables
 --------------
 
-Default variables you can view and in defaults/main.yml.
+Default variables you can view in defaults/main.yml.
 
 Usage
 ----------------
