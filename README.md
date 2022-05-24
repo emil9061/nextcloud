@@ -29,7 +29,7 @@ user@pc:~# vim /etc/ansible/hosts
 Then clone and put this role in ~/.ansible/roles/
 
 ```
-user@pc:~$ git clone https://github.com/kot-manul/nextcloud.git 
+user@pc:~$ git clone https://github.com/emil9061/nextcloud.git 
 
 user@pc:~$ mv nextcloud ~/.ansible/roles/
 ```
@@ -46,7 +46,3 @@ Then create and run the playbook:
 user@pc:~$ ansible-playbook playbook.yml -u root -k
 ```
 
-Author
-------------------
-
-Kot Manul
